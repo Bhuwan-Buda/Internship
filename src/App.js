@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./public/Login";
+import "./App.css";
+import PublicPage from "./public/PublicPage";
+import Dashboard from "./private/Dashboard";
+import Private from "./private/Private";
+import { useSelector } from "react-redux";
+import Footer from "./Footer";
+import Header from "./Header";
 
 function App() {
+  const value = useSelector(
+    (state) => state.authenticateReducer.isAuthenticated
+  );
+  console.log(value);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          {value ? (
+            <Route path="/" exact element={<Dashboard />} />
+          ) : (
+            <Route path="/" exact element={<Login />} />
+          )}
+          <Route path="/public" exact element={<PublicPage />} />
+          <Route path="/private" exact element={<Private />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }
