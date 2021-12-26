@@ -24,7 +24,7 @@ const validationSchema = Yup.object().shape({
 
 const Login = () => {
   const dispatch = useDispatch();
-
+  console.log("Login loaded");
   return (
     <Formik
       initialValues={initialValues}

@@ -2,7 +2,7 @@ import React from 'react'
 import "./App.css";
 
 const Footer = () => {
-
+    console.log("Footer loaded");
     return (
         <div className='footer bg-black text-white text-center'>
             <p className='para'>All Rights Reserved. &copy; New App</p>

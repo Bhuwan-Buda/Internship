@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout } from "./redux/action/index";
+import { logout, saveData } from "./redux/action/index";
 import "./App.css";
 
 const Header = () => {
+  console.log("Header loaded");
+  const [data, setData] = useState("");
   const dispatch = useDispatch();
   const value = useSelector(
     (state) => state.authenticateReducer.isAuthenticated
@@ -22,7 +24,7 @@ const Header = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon bg-white text-white"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {value ? (
@@ -53,26 +55,30 @@ const Header = () => {
             </ul>
           )}
           {value ? (
-            <form className="d-flex">
+            <React.Fragment>
               <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
+                className="form-control m-2"
+                type="text"
+                placeholder="Enter some data..."
+                value={data}
+                onChange={(e) => setData(e.target.value)}
               />
-              <button className="btn btn-outline-success" type="submit">
-                Search
+              <button
+                className="btn btn-outline-success"
+                title="save data"
+                type="button"
+                onClick={() => dispatch(saveData(data), setData(""))}
+              >
+                Save
               </button>
-            </form>
-          ) : null}
-          {value ? (
-            <button
-              className="btn btn-outline-danger"
-              text="logout"
-              onClick={() => dispatch(logout())}
-            >
-              <i className="fas fa-power-off"></i>
-            </button>
+              <button
+                className="btn btn-outline-danger"
+                title="Logout"
+                onClick={() => dispatch(logout())}
+              >
+                <i className="fas fa-power-off"></i>
+              </button>
+            </React.Fragment>
           ) : null}
         </div>
       </div>

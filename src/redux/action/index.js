@@ -9,3 +9,12 @@ export const logout = () => {
         type: 'LOGOUT'
     }
 }
+
+export const saveData = (data) => {
+    return {
+        type: 'SAVEDATA',
+        payload: {
+            data: data
+        }
+    }
+}
